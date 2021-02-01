@@ -28,6 +28,7 @@ class Tool(object):
         self.log_path = ""
         self.cert_path = ""
         self.sheetrow = ""  # row that contains data for ID of interest
+        self.use = ""
 
         wb = load_workbook(filename=spreadsheet_path)   # create workbook object from passedthrough filepath
         ws = wb.active  # create worksheet object that is the active sheet of the excel book
