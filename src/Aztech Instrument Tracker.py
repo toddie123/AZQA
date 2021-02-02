@@ -14,6 +14,7 @@ from tkinter import ttk
 from tkinter import PhotoImage
 import tkinter
 import webbrowser
+from read_log import Log
 
 from PIL import ImageTk, Image
 
@@ -37,6 +38,7 @@ def main():
         if new_tool.ID == 'nan':
             messagebox.showerror(title="Aztech Instrument Tracker - Error", message="Instrument ID not found!"
                                                                 " Please try another ID and containt QA Management.")
+            quit()
     except Exception:
         messagebox.showerror(title="Aztech Instrument Tracker - Error", message="Instrument ID not found!"
                                                     " Please try another ID and containt QA Management.")
@@ -45,6 +47,9 @@ def main():
 
 
     print("confirming expiration is: " + new_tool.cal_exp)
+    logged_instrument = Log(new_tool.log_path)
+
+    new_tool.use = logged_instrument.usecount
 
     root = tkinter.Tk()
 
