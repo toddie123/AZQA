@@ -48,6 +48,7 @@ class Tool(object):
     def set_tool_info(self):
         # Creating the name of the tool. Concatenates description (col E) and model (col G)
         # TODO create column variables for parameters
+        self.ID = str(self.df.iloc[self.sheetrow, 2])
         self.tool_type = str(self.df.iloc[self.sheetrow, 6] + " " + self.df.iloc[self.sheetrow, 4])
 
         self.use_limit = self.df.iloc[self.sheetrow, 15]

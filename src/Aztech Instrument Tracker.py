@@ -9,9 +9,10 @@ Main class that contains GUI
 
 from __future__ import absolute_import  # updated importing tools for python v3.x.x
 from azqa_instrument import Tool   # import the Tool helper class
-import tkinter
+from tkinter import messagebox
 from tkinter import ttk
-
+from tkinter import PhotoImage
+import tkinter
 import webbrowser
 
 from PIL import ImageTk, Image
@@ -24,24 +25,33 @@ def main():
 
     tool_input = input('Input tool ID')
 
-    # TODO remove below
-    print(tool_input)
-
+    # DONE remove below
 
     # TODO remove below
     #webbrowser.open_new(spread_path)
 
-    new_tool = Tool(tool_input, spread_path)
+    try:
+        new_tool = Tool(tool_input, spread_path)
+        new_tool.find_row()
+        new_tool.set_tool_info()
+        if new_tool.ID == 'nan':
+            messagebox.showerror(title="Aztech Instrument Tracker - Error", message="Instrument ID not found!"
+                                                                " Please try another ID and containt QA Management.")
+    except Exception:
+        messagebox.showerror(title="Aztech Instrument Tracker - Error", message="Instrument ID not found!"
+                                                    " Please try another ID and containt QA Management.")
 
     # DONE uncommment below
-    new_tool.find_row()
-    new_tool.set_tool_info()
+
 
     print("confirming expiration is: " + new_tool.cal_exp)
 
     root = tkinter.Tk()
 
     root.title("Aztech Tool Tracker")
+
+    icon_img = PhotoImage(file = 'aztech logo.PNG')
+    root.iconphoto(False, icon_img)
 
     main_frame = ttk.Frame(root, padding = 10)
     logo_frame = ttk.Frame(root, width = 50, height = 50)
@@ -51,11 +61,9 @@ def main():
     title_frame.grid(row=0, column=1)
     main_frame.grid(row=1, column=0)
 
-    logo = Image.open('aztech logo.png')
+    logo = Image.open('AZIT_Image1.png')
     photo = ImageTk.PhotoImage(logo)
-    title = ttk.Label(title_frame, text="Aztech Instrument Tracker")
 
-    title.grid(row=0, column=0)
     logo_label = ttk.Label(logo_frame, image=photo)
     logo_label.grid(row=0,column=0)
 
