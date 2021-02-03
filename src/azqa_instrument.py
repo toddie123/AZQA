@@ -7,7 +7,7 @@ Written by Todd Kuebelbeck, 2021 developed at and for Aztech Locknut Company
 Helper class for Aztech Instrument Tracker; Tool class
 """""
 import pandas as pd
-
+import datetime
 
 class Tool(object):
 
@@ -28,6 +28,8 @@ class Tool(object):
         self.sheetrow = 0  # row that contains data for ID of interest
         self.use = ""
         self.location = ""
+        self.exp_type = ""
+        self.status = 'GAGE READY FOR USE'
 
         # DONE REMOVE BELOW
 
@@ -45,6 +47,22 @@ class Tool(object):
             if str(self.df.iloc[i, 2]) == str(self.ID):
                 self.sheetrow = i
                 break
+
+    def set_status(self):
+        if self.use_limit.__contains__('/'):
+            self.exp_type = 'DATE'
+
+        else:
+            self.exp_type = 'COUNT'
+
+        #TODO COMPLETE BELOW
+        """""
+        if self.use_limit == 'DATE':
+            date = datetime.today('%m/%d/%Y')
+            if date  self.cal_exp
+        """
+        if self.use_limit == 'COUNT' and self.use >= self.use_limit:
+            self.status = 'GAGE NEEDS RECALIBRATION'
 
     def set_tool_info(self):
         # Creating the name of the tool. Concatenates description (col E) and model (col G)

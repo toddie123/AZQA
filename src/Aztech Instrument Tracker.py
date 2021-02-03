@@ -56,7 +56,7 @@ def main():
 
     def cert_button_click():
         print(str(new_tool.cert_path))
-
+        webbrowser.open_new('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
     # TODO remove below
     print("tool use count is: " + new_tool.use)
 
@@ -87,18 +87,26 @@ def main():
     tool_cal_exp_label = ttk.Label(main_frame, text="Date of Calibration Expiration: " + new_tool.cal_exp)
     tool_use_no = ttk.Label(main_frame, text="Number of times used: " + str(new_tool.use) + "/" + str(new_tool.use_limit))
     tool_location = ttk.Label(main_frame, text='Location: ' + str(new_tool.location))
+    tool_status = ttk.Label(main_frame, text='Tool Status: ' + str(new_tool.status))
+    tool_status.config(font=(44))
 
-    tool_id_label.grid(row=0, column=0)
+    if new_tool.status == "GAGE READY FOR USE":
+        tool_status.configure(foreground="green")
+    else:
+        tool_status.configure(foreground="red")
+
+    tool_status.grid(row=1, column=0)
+    tool_id_label.grid(row=1, column=0)
     #tool_id_label.pack()
-    tool_description_label.grid(row=0, column=1)
+    tool_description_label.grid(row=2, column=1)
     #tool_description_label.pack()
-    tool_cal_date_label.grid(row=1, column=0)
+    tool_cal_date_label.grid(row=2, column=0)
     #tool_cal_date_label.pack()
-    tool_cal_exp_label.grid(row=1, column=1)
+    tool_cal_exp_label.grid(row=2, column=1)
     #tool_cal_exp_label.pack()
-    tool_use_no.grid(row=2, column=0)
+    tool_use_no.grid(row=3, column=0)
     #tool_use_no.pack()
-    tool_location.grid(row=2, column=1)
+    tool_location.grid(row=3, column=1)
 
     cert_button = ttk.Button(main_frame, text="Open " + new_tool.ID + " Calibration Certificate")
     cert_button.grid(row=3, column=0)
