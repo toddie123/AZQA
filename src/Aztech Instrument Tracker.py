@@ -21,7 +21,6 @@ from PIL import ImageTk, Image
 # TODO: Add filepath for spreadsheet
 spread_path = r'C:\Users\kuebeltm\OneDrive\Documents\Aztech_work\Copy of QA EQUIPMENT LIST 8-21-2020 (WIP)x(2).csv'
 
-
 def main():
 
     tool_input = input('Input tool ID')
@@ -35,21 +34,31 @@ def main():
         new_tool = Tool(tool_input, spread_path)
         new_tool.find_row()
         new_tool.set_tool_info()
+        # DONE remove if necessary
+        # print("does das print work?: " + new_tool.cert_path)
         if new_tool.ID == 'nan':
             messagebox.showerror(title="Aztech Instrument Tracker - Error", message="Instrument ID not found!"
-                                                                " Please try another ID and containt QA Management.")
+                                                                " Please try another ID and contact QA Management.")
             quit()
     except Exception:
         messagebox.showerror(title="Aztech Instrument Tracker - Error", message="Instrument ID not found!"
-                                                    " Please try another ID and containt QA Management.")
+                                                   " Please try another ID and contact QA Management.")
 
-    # DONE uncommment below
+    # DONE uncomment below
 
 
     print("confirming expiration is: " + new_tool.cal_exp)
-    logged_instrument = Log(new_tool.log_path)
 
-    new_tool.use = logged_instrument.usecount
+    # TODO CHANGE TO TOOL OBJECT PATH VAR
+    logged_instrument = Log(r'C:\Users\kuebeltm\OneDrive\Documents\Aztech_work\20266120.csv')
+
+    new_tool.use = str(logged_instrument.usecount)
+
+    def cert_button_click():
+        print(str(new_tool.cert_path))
+
+    # TODO remove below
+    print("tool use count is: " + new_tool.use)
 
     root = tkinter.Tk()
 
@@ -77,6 +86,7 @@ def main():
     tool_cal_date_label = ttk.Label(main_frame, text="Date of Calibration: " + new_tool.cal_date)
     tool_cal_exp_label = ttk.Label(main_frame, text="Date of Calibration Expiration: " + new_tool.cal_exp)
     tool_use_no = ttk.Label(main_frame, text="Number of times used: " + str(new_tool.use) + "/" + str(new_tool.use_limit))
+    tool_location = ttk.Label(main_frame, text='Location: ' + str(new_tool.location))
 
     tool_id_label.grid(row=0, column=0)
     #tool_id_label.pack()
@@ -88,14 +98,14 @@ def main():
     #tool_cal_exp_label.pack()
     tool_use_no.grid(row=2, column=0)
     #tool_use_no.pack()
+    tool_location.grid(row=2, column=1)
 
     cert_button = ttk.Button(main_frame, text="Open " + new_tool.ID + " Calibration Certificate")
     cert_button.grid(row=3, column=0)
-    cert_button['command'] = lambda: webbrowser.open_new(new_tool.cert_path)
-
-    print(new_tool.cert_path)
+    cert_button['command'] = lambda: cert_button_click()
 
     root.mainloop()
+
 
 main()
 

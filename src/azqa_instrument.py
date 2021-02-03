@@ -27,12 +27,13 @@ class Tool(object):
         # DONE CHANGE SHEETROW TO BLANK
         self.sheetrow = 0  # row that contains data for ID of interest
         self.use = ""
+        self.location = ""
 
         # DONE REMOVE BELOW
 
         self.ID_col = 2    # Col that contains IDs default from sheet as of 02/01/2021 can be set externally
 
-        self.df = pd.read_csv(spreadsheet_path, encoding='unicode_escape')
+        self.df = pd.read_csv(spreadsheet_path, encoding='unicode_escape')  # big thank 6294 for selling me csv ;)
 
     def set_spreadsheet_path(self, spread_path_intput):
         self.spreadsheet = spread_path_intput
@@ -51,12 +52,15 @@ class Tool(object):
         self.ID = str(self.df.iloc[self.sheetrow, 2])
         self.tool_type = str(self.df.iloc[self.sheetrow, 6] + " " + self.df.iloc[self.sheetrow, 4])
 
-        self.use_limit = self.df.iloc[self.sheetrow, 15]
+        self.use_limit = int(self.df.iloc[self.sheetrow, 15])
+        # DONE remove below
+
         self.cal_date = str(self.df.iloc[self.sheetrow, 12])
         self.cal_exp = str(self.df.iloc[self.sheetrow, 11])
         self.log_path = str(self.df.iloc[self.sheetrow, 16])
-        #TODO uncomment below once PDF opener works
-        #self.cert_path = self.df.iloc(self.sheetrow, 32)
+        #DONE uncomment below once PDF opener works
+        self.cert_path = str(self.df.iloc[self.sheetrow, 31])
+        self.location = str(self.df.iloc[self.sheetrow, 3])
 
 
 
