@@ -1,11 +1,11 @@
 """""
 Aztech Locknut Company Tool Tracker Program
 This program is licensed to Aztech Engineering Inc. and its subsidiaries
-
 Written by Todd Kuebelbeck, 2021 developed at and for Aztech Locknut Company
 --------------------------------------------------------------------------------
 Helper class for Aztech Instrument Tracker; Tool class
 """""
+import __future__
 import pandas as pd
 import datetime
 
@@ -79,14 +79,3 @@ class Tool(object):
         #DONE uncomment below once PDF opener works
         self.cert_path = str(self.df.iloc[self.sheetrow, 31])
         self.location = str(self.df.iloc[self.sheetrow, 3])
-
-
-
-
-
-
-
-
-
-
-
