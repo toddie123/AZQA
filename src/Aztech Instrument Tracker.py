@@ -45,20 +45,25 @@ def main():
                                                    " Please try another ID and contact QA Management.")
 
     # DONE uncomment below
-
-
-    print("confirming expiration is: " + new_tool.cal_exp)
+    #print("confirming expiration is: " + new_tool.cal_exp)
 
     # TODO CHANGE TO TOOL OBJECT PATH VAR
-    logged_instrument = Log(r'C:\Users\kuebeltm\OneDrive\Documents\Aztech_work\20266120.csv')
+    new_tool.log_path = r'C:\Users\kuebeltm\OneDrive\Documents\Aztech_work\20266120.csv'
+    logged_instrument = Log(new_tool.log_path)
 
     new_tool.use = str(logged_instrument.usecount)
 
     def cert_button_click():
-        print(str(new_tool.cert_path))
+        #print(str(new_tool.cert_path))
         webbrowser.open_new('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
-    # TODO remove below
-    print("tool use count is: " + new_tool.use)
+    # DONE remove below
+    #print("tool use count is: " + new_tool.use)
+
+
+    def count_routine(action):
+        temp_file = open("AITtemp.txt", 'w')
+        temp_file.write(str(action)+';'+str(new_tool.log_path))
+        temp_file.close()
 
     root = tkinter.Tk()
 
@@ -66,6 +71,16 @@ def main():
 
     icon_img = PhotoImage(file = 'aztech logo.PNG')
     root.iconphoto(False, icon_img)
+
+    def override_routine():
+        override_result = messagebox.askyesno(title="USE ERROR - Aztech Instrument Tracker",
+                                              message='The gage you entered is not within calibration limits. '
+                                                      'Alert QA Management of this error. Do you want to still use this gage?')
+
+        if override_result == True:
+            count_routine(0)
+        else:
+            count_routine(-1)
 
     main_frame = ttk.Frame(root, padding = 10)
     logo_frame = ttk.Frame(root, width = 50, height = 50)
@@ -88,12 +103,19 @@ def main():
     tool_use_no = ttk.Label(main_frame, text="Number of times used: " + str(new_tool.use) + "/" + str(new_tool.use_limit))
     tool_location = ttk.Label(main_frame, text='Location: ' + str(new_tool.location))
     tool_status = ttk.Label(main_frame, text='Tool Status: ' + str(new_tool.status))
+
+    # buttons that will appear according to status
+    count_button = ttk.Button(main_frame, text="USE INSTRUMENT")
+    check_next = ttk.Button(main_frame, text="CHECK NEXT INSTRUMENT")
+
     tool_status.config(font=(44))
 
     if new_tool.status == "GAGE READY FOR USE":
         tool_status.configure(foreground="green")
+        count_button.grid(row=4, column=0)
     else:
         tool_status.configure(foreground="red")
+        override_routine()
 
     tool_status.grid(row=1, column=0)
     tool_id_label.grid(row=1, column=0)
@@ -111,6 +133,10 @@ def main():
     cert_button = ttk.Button(main_frame, text="Open " + new_tool.ID + " Calibration Certificate")
     cert_button.grid(row=3, column=0)
     cert_button['command'] = lambda: cert_button_click()
+
+    count_button['command'] = lambda: count_routine(1)
+    check_next['command'] = lambda: count_routine(-1)
+
 
     root.mainloop()
 
