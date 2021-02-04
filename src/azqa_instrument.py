@@ -29,7 +29,7 @@ class Tool(object):
         self.use = ""
         self.location = ""
         self.exp_type = ""
-        self.status = 'GAGE READY FOR USE'
+        self.status = 'GOOD FOR USE'
 
         # DONE REMOVE BELOW
 
@@ -62,11 +62,12 @@ class Tool(object):
             if date  self.cal_exp
         """
         if self.use_limit == 'COUNT' and self.use >= self.use_limit:
-            self.status = 'GAGE NEEDS RECALIBRATION'
+            self.status = 'NOT GOOD FOR USE'
 
     def set_tool_info(self):
         # Creating the name of the tool. Concatenates description (col E) and model (col G)
         # TODO create column variables for parameters
+        self.set_status()
         self.ID = str(self.df.iloc[self.sheetrow, 2])
         self.tool_type = str(self.df.iloc[self.sheetrow, 6] + " " + self.df.iloc[self.sheetrow, 4])
 

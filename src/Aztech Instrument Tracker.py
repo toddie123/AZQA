@@ -12,9 +12,9 @@ from tkinter import messagebox
 from tkinter import ttk
 from tkinter import PhotoImage
 import tkinter
-import webbrowser
 from read_log import Log
 import os
+from write_temp import Temp
 
 from PIL import ImageTk, Image
 
@@ -60,7 +60,9 @@ def main():
         print(str(new_tool.cert_path))
         os.startfile(new_tool.cert_path)
     # TODO remove below
+
     print("tool use count is: " + new_tool.use)
+
 
     root = tkinter.Tk()
 
@@ -92,27 +94,48 @@ def main():
     tool_status = ttk.Label(main_frame, text='Tool Status: ' + str(new_tool.status))
     tool_status.config(font=(44))
 
+    def override_routine():
+        override_option = messagebox.askyesno("EXPIRED INSTRUMENT", "The instrument scanned is expired or exceeded its use count!"
+                                " Notify QA Management about gage. Would you like to override?")
+
+        print(override_option)
+        if override_option is True:
+            new_tool.status = 'OVERRIDE'
+            Temp(new_tool.status, new_tool.log_path)
+        else:
+            new_tool.status = 'NOT GOOD FOR USE'
+            Temp(new_tool.status, new_tool.log_path)
+
+
     if new_tool.status == "GAGE READY FOR USE":
         tool_status.configure(foreground="green")
+
+        good_button = ttk.Button(main_frame, text="USE INSTRUMENT")
+        good_button.grid(row=5, column=1)
+        good_button['command'] = lambda: Temp(new_tool.status, new_tool.log_path)
     else:
+        override_routine()
+        tool_status = ttk.Label(main_frame, text='Tool Status: ' + str(new_tool.status))
         tool_status.configure(foreground="red")
+        tool_status.config(font=(44))
 
     tool_status.grid(row=1, column=0)
-    tool_id_label.grid(row=1, column=0)
+    tool_id_label.grid(row=2, column=0)
     #tool_id_label.pack()
     tool_description_label.grid(row=2, column=1)
     #tool_description_label.pack()
-    tool_cal_date_label.grid(row=2, column=0)
+    tool_cal_date_label.grid(row=3, column=0)
     #tool_cal_date_label.pack()
-    tool_cal_exp_label.grid(row=2, column=1)
+    tool_cal_exp_label.grid(row=3, column=1)
     #tool_cal_exp_label.pack()
-    tool_use_no.grid(row=3, column=0)
+    tool_use_no.grid(row=4, column=0)
     #tool_use_no.pack()
-    tool_location.grid(row=3, column=1)
+    tool_location.grid(row=4, column=1)
 
     cert_button = ttk.Button(main_frame, text="Open " + new_tool.ID + " Calibration Certificate")
-    cert_button.grid(row=3, column=0)
+    cert_button.grid(row=5, column=0)
     cert_button['command'] = lambda: cert_button_click()
+
 
     root.mainloop()
 
