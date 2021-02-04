@@ -44,7 +44,9 @@ class Tool(object):
         column = self.df['NEW ID NUMBER']
 
         for i in range(len(column)):
-            if str(self.df.iloc[i, 2]) == str(self.ID):
+            # TODO ADD INTO IF  or (str(self.df.iloc[i, 1]) == str(self.ID))
+            if (str(self.df.iloc[i, 2]) == str(self.ID)):
+                print(str(self.df.iloc[i, 1]))
                 self.sheetrow = i
                 break
 

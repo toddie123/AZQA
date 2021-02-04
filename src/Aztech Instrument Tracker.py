@@ -66,7 +66,7 @@ def main():
 
     root = tkinter.Tk()
 
-    root.title("Aztech Tool Tracker")
+    root.title("Aztech Instrument Tracker")
 
     icon_img = PhotoImage(file = 'aztech logo.PNG')
     root.iconphoto(False, icon_img)
@@ -85,13 +85,13 @@ def main():
     logo_label = ttk.Label(logo_frame, image=photo)
     logo_label.grid(row=0,column=0)
 
-    tool_id_label = ttk.Label(main_frame, text="Tool ID: " + new_tool.ID)
-    tool_description_label = ttk.Label(main_frame, text="Tool Type: " + new_tool.tool_type)
+    tool_id_label = ttk.Label(main_frame, text="Instrument ID: " + new_tool.ID)
+    tool_description_label = ttk.Label(main_frame, text="Instrument Type: " + new_tool.tool_type)
     tool_cal_date_label = ttk.Label(main_frame, text="Date of Calibration: " + new_tool.cal_date)
     tool_cal_exp_label = ttk.Label(main_frame, text="Date of Calibration Expiration: " + new_tool.cal_exp)
     tool_use_no = ttk.Label(main_frame, text="Number of times used: " + str(new_tool.use) + "/" + str(new_tool.use_limit))
     tool_location = ttk.Label(main_frame, text='Location: ' + str(new_tool.location))
-    tool_status = ttk.Label(main_frame, text='Tool Status: ' + str(new_tool.status))
+    tool_status = ttk.Label(main_frame, text='Instrument Status: ' + str(new_tool.status))
     tool_status.config(font=(44))
 
     def override_routine():
@@ -115,7 +115,7 @@ def main():
         good_button['command'] = lambda: Temp(new_tool.status, new_tool.log_path)
     else:
         override_routine()
-        tool_status = ttk.Label(main_frame, text='Tool Status: ' + str(new_tool.status))
+        tool_status = ttk.Label(main_frame, text='Instrument Status: ' + str(new_tool.status))
         tool_status.configure(foreground="red")
         tool_status.config(font=(44))
 
