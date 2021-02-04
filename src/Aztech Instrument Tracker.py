@@ -107,7 +107,7 @@ def main():
             Temp(new_tool.status, new_tool.log_path)
 
 
-    if new_tool.status == "GAGE READY FOR USE":
+    if new_tool.status == 'GOOD FOR USE':
         tool_status.configure(foreground="green")
 
         good_button = ttk.Button(main_frame, text="USE INSTRUMENT")

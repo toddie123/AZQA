@@ -63,22 +63,33 @@ class Tool(object):
             date = datetime.today('%m/%d/%Y')
             if date  self.cal_exp
         """
-        if self.use_limit == 'COUNT' and self.use >= self.use_limit:
+
+        if self.exp_type == 'COUNT' and (self.use >= self.use_limit):
+            print("used: " + self.use + "; out of " + self.use_limit)
             self.status = 'NOT GOOD FOR USE'
+
+
+        # TODO REMOVE BELOW
+        print("my status is: " + self.status)
 
     def set_tool_info(self):
         # Creating the name of the tool. Concatenates description (col E) and model (col G)
         # TODO create column variables for parameters
         self.set_status()
+        self.log_path = str(self.df.iloc[self.sheetrow, 16])
+        self.use_limit = int(self.df.iloc[self.sheetrow, 15])
+
+
+
         self.ID = str(self.df.iloc[self.sheetrow, 2])
         self.tool_type = str(self.df.iloc[self.sheetrow, 6] + " " + self.df.iloc[self.sheetrow, 4])
 
-        self.use_limit = int(self.df.iloc[self.sheetrow, 15])
+
         # DONE remove below
 
         self.cal_date = str(self.df.iloc[self.sheetrow, 12])
         self.cal_exp = str(self.df.iloc[self.sheetrow, 11])
-        self.log_path = str(self.df.iloc[self.sheetrow, 16])
+
         #DONE uncomment below once PDF opener works
         self.cert_path = str(self.df.iloc[self.sheetrow, 31])
         self.location = str(self.df.iloc[self.sheetrow, 3])
