@@ -52,7 +52,7 @@ def main():
     print("confirming expiration is: " + new_tool.cal_exp)
 
     # TODO CHANGE TO TOOL OBJECT PATH VAR
-    logged_instrument = Log(r'C:\Users\kuebeltm\OneDrive\Documents\Aztech_work\20266120.csv')
+    logged_instrument = Log(str(new_tool.log_path))
 
     new_tool.use = str(logged_instrument.usecount)
 
@@ -72,8 +72,8 @@ def main():
     root.iconphoto(False, icon_img)
 
     main_frame = ttk.Frame(root, padding = 10)
-    logo_frame = ttk.Frame(root, width = 50, height = 50)
-    title_frame = ttk.Frame(root, width = 300, height = 196)
+    logo_frame = ttk.Frame(root, width = 0, height = 0)
+    title_frame = ttk.Frame(root, width = 0, height = 0)
 
     logo_frame.grid(row=0, column=0)
     title_frame.grid(row=0, column=1)
