@@ -14,6 +14,7 @@ from tkinter import PhotoImage
 import tkinter
 import webbrowser
 from read_log import Log
+import os
 
 from PIL import ImageTk, Image
 
@@ -57,7 +58,7 @@ def main():
 
     def cert_button_click():
         print(str(new_tool.cert_path))
-        webbrowser.open_new('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+        os.startfile(new_tool.cert_path)
     # TODO remove below
     print("tool use count is: " + new_tool.use)
 
