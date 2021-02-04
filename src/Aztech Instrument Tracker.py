@@ -18,7 +18,7 @@ from read_log import Log
 from PIL import ImageTk, Image
 
 # TODO: Add filepath for spreadsheet
-spread_path = r'C:/Users/kuebeltm/OneDrive/Documents/Aztech_work/Copy of QA EQUIPMENT LIST 8-21-2020 (WIP)x(2).csv'
+spread_path = r'C:/Users/kuebeltm/OneDrive/Documents/Aztech_work/Copy of QA EQUIPMENT LIST 8-21-2020 (WIP)x(2)UTF.csv'
 print(spread_path)
 def main():
 

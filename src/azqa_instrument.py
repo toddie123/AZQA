@@ -35,7 +35,7 @@ class Tool(object):
 
         self.ID_col = 2    # Col that contains IDs default from sheet as of 02/01/2021 can be set externally
 
-        self.df = pd.read_csv(spreadsheet_path, encoding='unicode_escape')  # big thank 6294 for selling me csv ;)
+        self.df = pd.read_csv(spreadsheet_path, encoding='UTF-8')  # big thank 6294 for selling me csv ;)
 
     def set_spreadsheet_path(self, spread_path_intput):
         self.spreadsheet = spread_path_intput
