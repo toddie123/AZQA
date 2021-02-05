@@ -101,18 +101,21 @@ def main():
         print(override_option)
         if override_option is True:
             new_tool.status = 'OVERRIDE'
-            Temp(new_tool.status, new_tool.log_path)
+            Temp(new_tool.status, new_tool.log_path,new_tool.ID)
         else:
             new_tool.status = 'NOT GOOD FOR USE'
-            Temp(new_tool.status, new_tool.log_path)
+            Temp(new_tool.status, new_tool.log_path, new_tool.ID)
 
 
-    if new_tool.status == 'GOOD FOR USE':
+    if int(new_tool.use) < new_tool.use_limit:
+        new_tool.status = 'GOOD FOR USE'
+        tool_status = ttk.Label(main_frame, text='Instrument Status: ' + str(new_tool.status))
+        tool_status.config(font=(44))
         tool_status.configure(foreground="green")
 
         good_button = ttk.Button(main_frame, text="USE INSTRUMENT")
         good_button.grid(row=5, column=1)
-        good_button['command'] = lambda: Temp(new_tool.status, new_tool.log_path)
+        good_button['command'] = lambda: Temp(new_tool.status, new_tool.log_path,new_tool.ID)
     else:
         override_routine()
         tool_status = ttk.Label(main_frame, text='Instrument Status: ' + str(new_tool.status))
