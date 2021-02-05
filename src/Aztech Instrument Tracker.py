@@ -17,6 +17,9 @@ import os
 from write_temp import Temp
 
 from PIL import ImageTk, Image
+from date_check import Date
+import datetime
+
 
 # TODO: Add filepath for spreadsheet
 spread_path = r'C:/Users/kuebeltm/OneDrive/Documents/Aztech_work/Copy of QA EQUIPMENT LIST 8-21-2020 (WIP)x(2)UTF.csv'
@@ -48,6 +51,9 @@ def main():
 
     # DONE uncomment below
 
+    new_date_check = Date(new_tool.cal_exp)
+    new_date_check.chop_date()
+    new_date_check.chop_today()
 
     print("confirming expiration is: " + new_tool.cal_exp)
 
@@ -83,7 +89,7 @@ def main():
     photo = ImageTk.PhotoImage(logo)
 
     logo_label = ttk.Label(logo_frame, image=photo)
-    logo_label.grid(row=0,column=0)
+    logo_label.grid(row=0, column=0)
 
     tool_id_label = ttk.Label(main_frame, text="Instrument ID: " + new_tool.ID)
     tool_description_label = ttk.Label(main_frame, text="Instrument Type: " + new_tool.tool_type)
@@ -106,8 +112,8 @@ def main():
             new_tool.status = 'NOT GOOD FOR USE'
             Temp(new_tool.status, new_tool.log_path, new_tool.ID)
 
-
-    if int(new_tool.use) < new_tool.use_limit:
+    print("before interface change (115):" + str(new_date_check.check()))
+    if int(new_tool.use) < new_tool.use_limit and str(new_date_check.check()) == 'True':
         new_tool.status = 'GOOD FOR USE'
         tool_status = ttk.Label(main_frame, text='Instrument Status: ' + str(new_tool.status))
         tool_status.config(font=(44))
@@ -135,10 +141,18 @@ def main():
     #tool_use_no.pack()
     tool_location.grid(row=4, column=1)
 
+    # TODO REMOVE BELOW
+    print("DATE STATUS: " + str(new_date_check.check()))
+
+    print("FROM TRACKER: " + str(int(new_date_check.today_year) > int(new_date_check.exp_year)))
+
+    #print("check val " + str(new_date_check.check()))
+    print("Current date time " + str(datetime.datetime.now()))
+
+
     cert_button = ttk.Button(main_frame, text="Open " + new_tool.ID + " Calibration Certificate")
     cert_button.grid(row=5, column=0)
     cert_button['command'] = lambda: cert_button_click()
-
 
     root.mainloop()
 

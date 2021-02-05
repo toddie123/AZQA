@@ -5,7 +5,7 @@ class Log(object):
         self.filepath = filepath
         self.usecount = 0
 
-        self.df = pd.read_csv(self.filepath, encoding='unicode_escape', header=None)
+        self.df = pd.read_csv(self.filepath, encoding='UTF-8', header=None)
 
         # TODO REMOVE BELOW
         print('cell is ' + str(self.df.iloc[0, 3]))

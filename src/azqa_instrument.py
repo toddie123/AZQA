@@ -7,7 +7,8 @@ Helper class for Aztech Instrument Tracker; Tool class
 """""
 import __future__
 import pandas as pd
-import datetime
+from datetime import datetime
+from date_check import Date
 
 class Tool(object):
 
@@ -63,15 +64,29 @@ class Tool(object):
             date = datetime.today('%m/%d/%Y')
             if date  self.cal_exp
         """
+        #instrument_date = Date(self.cal_exp)
+        #instrument_date.chop()
+        #instrument_date.chop_today()
+
+        # TODO EDIT HERE?
+        new_date_check = Date(self.cal_exp)
+        new_date_check.chop_date()
+        new_date_check.chop_today()
+
+        #DONE remove below
 
         if self.exp_type == 'COUNT' and (self.use >= self.use_limit):
             print("used: " + self.use + "; out of " + self.use_limit)
             self.status = 'NOT GOOD FOR USE'
-
+        else:
+            if new_date_check.check() is True:
+                self.status = 'GOOD FOR USE'
+            else:
+                self.status = 'NOT GOOD FOR USE'
 
         # TODO REMOVE BELOW
         print("my status is: " + self.status)
-
+        #print("Today is: " + datetime.today('%m/%d/%y'))
     def set_tool_info(self):
         # Creating the name of the tool. Concatenates description (col E) and model (col G)
         # TODO create column variables for parameters
