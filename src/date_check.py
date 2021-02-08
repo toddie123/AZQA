@@ -25,9 +25,9 @@ class Date(object):
 
 
     def chop_date(self):
-        self.exp_month = self.exp_date[0:1]
-        self.exp_day = self.exp_date[2:4]
-        self.exp_year = self.exp_date[5:9]
+        self.exp_month = self.exp_date[0:2]
+        self.exp_day = self.exp_date[3:5]
+        self.exp_year = self.exp_date[6:10]
 
     def check(self):
 
@@ -36,7 +36,7 @@ class Date(object):
         """
         # TODO REMOVE BELOW
         print("DT CLASS Today chop date is: " + str(self.today_month) + " " + str(self.today_day) + " " + str(
-            self.today_year))
+            self.today_year)[2:4])
         print("DT CLASS Chop Date is: " + str(self.exp_month) + " " + str(self.exp_day) + " " + str(self.exp_year))
 
         if str(int(self.today_year) > int(self.exp_year)) == 'True':
