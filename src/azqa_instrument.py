@@ -105,6 +105,8 @@ class Tool(object):
         self.cal_date = str(self.df.iloc[self.sheetrow, 12])
         self.cal_exp = str(self.df.iloc[self.sheetrow, 11])
 
+        self.exp_type = str((self.df.iloc[self.sheetrow, 32]))
+
         #DONE uncomment below once PDF opener works
         self.cert_path = str(self.df.iloc[self.sheetrow, 31])
         self.location = str(self.df.iloc[self.sheetrow, 3])

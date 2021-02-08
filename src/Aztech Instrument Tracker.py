@@ -112,8 +112,10 @@ def main():
             new_tool.status = 'NOT GOOD FOR USE'
             Temp(new_tool.status, new_tool.log_path, new_tool.ID)
 
+    print("My exp type is: " + new_tool.exp_type)
     print("before interface change (115):" + str(new_date_check.check()))
-    if int(new_tool.use) < new_tool.use_limit and str(new_date_check.check()) == 'True':
+
+    if new_tool.exp_type == 'COUNT' and int(new_tool.use) < new_tool.use_limit:
         new_tool.status = 'GOOD FOR USE'
         tool_status = ttk.Label(main_frame, text='Instrument Status: ' + str(new_tool.status))
         tool_status.config(font=(44))
@@ -122,11 +124,24 @@ def main():
         good_button = ttk.Button(main_frame, text="USE INSTRUMENT")
         good_button.grid(row=5, column=1)
         good_button['command'] = lambda: Temp(new_tool.status, new_tool.log_path,new_tool.ID)
+
+    elif new_tool.exp_type == 'DATE' and (str(new_date_check.check()) == 'False'):
+        new_tool.status = 'GOOD FOR USE'
+        tool_status = ttk.Label(main_frame, text='Instrument Status: ' + str(new_tool.status))
+        tool_status.config(font=(44))
+        tool_status.configure(foreground="green")
+
+        good_button = ttk.Button(main_frame, text="USE INSTRUMENT")
+        good_button.grid(row=5, column=1)
+        good_button['command'] = lambda: Temp(new_tool.status, new_tool.log_path, new_tool.ID)
+
     else:
+        print("Inside the else else")
         override_routine()
         tool_status = ttk.Label(main_frame, text='Instrument Status: ' + str(new_tool.status))
         tool_status.configure(foreground="red")
         tool_status.config(font=(44))
+
 
     tool_status.grid(row=1, column=0)
     tool_id_label.grid(row=2, column=0)
