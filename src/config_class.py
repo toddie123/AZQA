@@ -17,5 +17,6 @@ class Config(object):
         self.instrument_exp_type = str(self.config.iloc[0, 9])
         self.instrument_cert = str(self.config.iloc[0, 10])
         self.instrument_location = str(self.config.iloc[0, 11])
+        self.temp_location = str(self.config.iloc[0, 12])
 
 

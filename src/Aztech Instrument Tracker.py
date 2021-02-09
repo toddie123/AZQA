@@ -105,10 +105,10 @@ def main():
 
         if override_option is True:
             new_tool.status = 'OVERRIDE'
-            Temp(new_tool.status, new_tool.log_path,new_tool.ID)
+            Temp(new_tool.status, new_tool.log_path,new_tool.ID, config_file.temp_location)
         else:
             new_tool.status = 'NOT GOOD FOR USE'
-            Temp(new_tool.status, new_tool.log_path, new_tool.ID)
+            Temp(new_tool.status, new_tool.log_path, new_tool.ID, config_file.temp_location)
 
     if new_tool.exp_type == 'COUNT' and int(new_tool.use) < new_tool.use_limit:
         new_tool.status = 'GOOD FOR USE'
@@ -118,7 +118,7 @@ def main():
 
         good_button = ttk.Button(main_frame, text="USE INSTRUMENT")
         good_button.grid(row=5, column=1)
-        good_button['command'] = lambda: Temp(new_tool.status, new_tool.log_path,new_tool.ID)
+        good_button['command'] = lambda: Temp(new_tool.status, new_tool.log_path,new_tool.ID, config_file.temp_location)
 
     elif new_tool.exp_type == 'DATE' and (str(new_date_check.check()) == 'False'):
         new_tool.status = 'GOOD FOR USE'
@@ -128,7 +128,7 @@ def main():
 
         good_button = ttk.Button(main_frame, text="USE INSTRUMENT")
         good_button.grid(row=5, column=1)
-        good_button['command'] = lambda: Temp(new_tool.status, new_tool.log_path, new_tool.ID)
+        good_button['command'] = lambda: Temp(new_tool.status, new_tool.log_path, new_tool.ID, config_file.temp_location)
 
     else:
         override_routine()

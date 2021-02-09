@@ -1,2 +1,2 @@
-Master_list,log_col,use_lim_col,ID_col,legacy_ID_col,instrument_description,instrument_type,instrument_cal_date,instrument_cal_exp,instrument_exp_type,instrument_cert,instrument_location
-C:/Users/kuebeltm/OneDrive/Documents/Aztech_work/Copy of QA EQUIPMENT LIST 8-21-2020 (WIP)x(2)UTF.csv,16,15,2,1,6,4,12,11,32,31,3
+Master_list,log_col,use_lim_col,ID_col,legacy_ID_col,instrument_description,instrument_type,instrument_cal_date,instrument_cal_exp,instrument_exp_type,instrument_cert,instrument_location,temp_file
+C:/Users/kuebeltm/OneDrive/Documents/Aztech_work/Copy of QA EQUIPMENT LIST 8-21-2020 (WIP)x(2)UTF.csv,16,15,2,1,6,4,12,11,32,31,3,C:\Users\kuebeltm\PycharmProjects\AZQA\src\AITtemp.txt
