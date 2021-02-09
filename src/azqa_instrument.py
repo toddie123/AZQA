@@ -32,6 +32,7 @@ class Tool(object):
         self.location = ""
         self.exp_type = ""
         self.status = 'GOOD FOR USE'
+        self.legacyID_col = 1
 
         # DONE REMOVE BELOW
 
@@ -48,7 +49,7 @@ class Tool(object):
 
         for i in range(len(column)):
             # TODO ADD INTO IF  or (str(self.df.iloc[i, 1]) == str(self.ID))
-            if (str(self.df.iloc[i, 2]) == str(self.ID)):
+            if (str(self.df.iloc[i, self.ID_col]) == str(self.ID)) or (str(self.df.iloc[i, self.legacyID_col]) == str(self.ID)):
                 self.sheetrow = i
                 break
 
@@ -91,10 +92,11 @@ class Tool(object):
         # TODO create column variables for parameters
         self.set_status()
         #print("IN INSTRUMENT CLASS LOG PATH IS: " + int(self.config.log))
-        self.log_path = str(self.df.iloc[self.sheetrow, int(16)])
+        self.log_path = str(self.df.iloc[self.sheetrow, int(self.config.log)])
         self.use_limit = int(self.df.iloc[self.sheetrow, int(self.config.use_lim)])
 
-        self.ID = str(self.df.iloc[self.sheetrow, int(self.config.ID_col)])
+        self.ID_col = str(self.df.iloc[self.sheetrow, int(self.config.ID_col)])
+        self.legacyID_col = str(self.df.iloc[self.sheetrow, int(self.config.legacy_ID)])
         self.tool_type = str(self.df.iloc[self.sheetrow, int(self.config.instrument_description)] + " " + self.df.iloc[self.sheetrow, int(self.config.instrument_type)])
 
 
