@@ -15,15 +15,15 @@ import tkinter
 from read_log import Log
 import os
 from write_temp import Temp
-
+from config_class import Config
 from PIL import ImageTk, Image
 from date_check import Date
 import datetime
 
-
+config_file = Config()
 # TODO: Add filepath for spreadsheet
-spread_path = r'C:/Users/kuebeltm/OneDrive/Documents/Aztech_work/Copy of QA EQUIPMENT LIST 8-21-2020 (WIP)x(2)UTF.csv'
-print(spread_path)
+spread_path = config_file.masterlist
+print("MASTERLIST PATH IS: " + spread_path)
 def main():
 
     tool_input = input('Input tool ID')
@@ -35,27 +35,31 @@ def main():
 
     new_tool = Tool(tool_input, spread_path)
     print('made to 33')
+    print("tool id is: " + new_tool.ID + " tool input is: " + tool_input)
 
     try:
         new_tool.find_row()
         new_tool.set_tool_info()
-        # DONE remove if necessary
-        print("does das PATH work?: " + new_tool.cert_path)
-        if new_tool.ID == 'nan':
-            messagebox.showerror(title="Aztech Instrument Tracker - Error", message="Instrument ID not found!"
-                                                                " Please try another ID and contact QA Management.")
-            quit()
     except Exception:
         messagebox.showerror(title="Aztech Instrument Tracker - Error", message="Instrument ID not found!"
-                                                   " Please try another ID and contact QA Management.")
+                                                                                " Please try another ID and contact QA Management.")
+    """""
+    if str(new_tool.ID) != str(tool_input):
+        messagebox.showerror(title="Aztech Instrument Tracker - Error", message="Instrument ID not found!"
+                                                            " Please try another ID and contact QA Management.")
+        quit()
+    """
+
+
+    # DONE remove if necessary
+    print("does das PATH work?: " + new_tool.cert_path)
+
 
     # DONE uncomment below
-
     new_date_check = Date(new_tool.cal_exp)
     new_date_check.chop_date()
     new_date_check.chop_today()
 
-    print("confirming expiration is: " + new_tool.cal_exp)
 
     # TODO CHANGE TO TOOL OBJECT PATH VAR
     logged_instrument = Log(str(new_tool.log_path))
@@ -63,11 +67,9 @@ def main():
     new_tool.use = str(logged_instrument.usecount)
 
     def cert_button_click():
-        print(str(new_tool.cert_path))
+
         os.startfile(new_tool.cert_path)
     # TODO remove below
-
-    print("tool use count is: " + new_tool.use)
 
 
     root = tkinter.Tk()

@@ -9,6 +9,7 @@ import __future__
 import pandas as pd
 from datetime import datetime
 from date_check import Date
+from config_class import Config
 
 class Tool(object):
 
@@ -37,6 +38,7 @@ class Tool(object):
         self.ID_col = 2    # Col that contains IDs default from sheet as of 02/01/2021 can be set externally
 
         self.df = pd.read_csv(spreadsheet_path, encoding='UTF-8')  # big thank 6294 for selling me csv ;)
+        self.config = Config()
 
     def set_spreadsheet_path(self, spread_path_intput):
         self.spreadsheet = spread_path_intput
@@ -91,22 +93,21 @@ class Tool(object):
         # Creating the name of the tool. Concatenates description (col E) and model (col G)
         # TODO create column variables for parameters
         self.set_status()
-        self.log_path = str(self.df.iloc[self.sheetrow, 16])
-        self.use_limit = int(self.df.iloc[self.sheetrow, 15])
+        #print("IN INSTRUMENT CLASS LOG PATH IS: " + int(self.config.log))
+        self.log_path = str(self.df.iloc[self.sheetrow, int(16)])
+        self.use_limit = int(self.df.iloc[self.sheetrow, int(self.config.use_lim)])
 
-
-
-        self.ID = str(self.df.iloc[self.sheetrow, 2])
-        self.tool_type = str(self.df.iloc[self.sheetrow, 6] + " " + self.df.iloc[self.sheetrow, 4])
+        self.ID = str(self.df.iloc[self.sheetrow, int(self.config.ID_col)])
+        self.tool_type = str(self.df.iloc[self.sheetrow, int(self.config.instrument_description)] + " " + self.df.iloc[self.sheetrow, int(self.config.instrument_type)])
 
 
         # DONE remove below
 
-        self.cal_date = str(self.df.iloc[self.sheetrow, 12])
-        self.cal_exp = str(self.df.iloc[self.sheetrow, 11])
+        self.cal_date = str(self.df.iloc[self.sheetrow, int(self.config.instrument_cal_date)])
+        self.cal_exp = str(self.df.iloc[self.sheetrow, int(self.config.instrument_cal_exp)])
 
-        self.exp_type = str((self.df.iloc[self.sheetrow, 32]))
+        self.exp_type = str((self.df.iloc[self.sheetrow, int(self.config.instrument_exp_type)]))
 
         #DONE uncomment below once PDF opener works
-        self.cert_path = str(self.df.iloc[self.sheetrow, 31])
-        self.location = str(self.df.iloc[self.sheetrow, 3])
+        self.cert_path = str(self.df.iloc[self.sheetrow, int(self.config.instrument_cert)])
+        self.location = str(self.df.iloc[self.sheetrow, int(self.config.instrument_location)])
