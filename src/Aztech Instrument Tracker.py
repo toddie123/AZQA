@@ -23,7 +23,6 @@ import datetime
 config_file = Config()
 # TODO: Add filepath for spreadsheet
 spread_path = config_file.masterlist
-print("MASTERLIST PATH IS: " + spread_path)
 def main():
 
     tool_input = input('Input tool ID')
@@ -34,8 +33,6 @@ def main():
     #webbrowser.open_new(spread_path)
 
     new_tool = Tool(tool_input, spread_path)
-    print('made to 33')
-    print("tool id is: " + new_tool.ID + " tool input is: " + tool_input)
 
     try:
         new_tool.find_row()
@@ -52,7 +49,6 @@ def main():
 
 
     # DONE remove if necessary
-    print("does das PATH work?: " + new_tool.cert_path)
 
 
     # DONE uncomment below
@@ -106,16 +102,13 @@ def main():
         override_option = messagebox.askyesno("EXPIRED INSTRUMENT", "The instrument scanned is expired or exceeded its use count!"
                                 " Notify QA Management about gage. Would you like to override?")
 
-        print(override_option)
+
         if override_option is True:
             new_tool.status = 'OVERRIDE'
             Temp(new_tool.status, new_tool.log_path,new_tool.ID)
         else:
             new_tool.status = 'NOT GOOD FOR USE'
             Temp(new_tool.status, new_tool.log_path, new_tool.ID)
-
-    print("My exp type is: " + new_tool.exp_type)
-    print("before interface change (115):" + str(new_date_check.check()))
 
     if new_tool.exp_type == 'COUNT' and int(new_tool.use) < new_tool.use_limit:
         new_tool.status = 'GOOD FOR USE'
@@ -138,7 +131,6 @@ def main():
         good_button['command'] = lambda: Temp(new_tool.status, new_tool.log_path, new_tool.ID)
 
     else:
-        print("Inside the else else")
         override_routine()
         tool_status = ttk.Label(main_frame, text='Instrument Status: ' + str(new_tool.status))
         tool_status.configure(foreground="red")
@@ -159,13 +151,6 @@ def main():
     tool_location.grid(row=4, column=1)
 
     # TODO REMOVE BELOW
-    print("DATE STATUS: " + str(new_date_check.check()))
-
-    print("FROM TRACKER: " + str(int(new_date_check.today_year) > int(new_date_check.exp_year)))
-
-    #print("check val " + str(new_date_check.check()))
-    print("Current date time " + str(datetime.datetime.now()))
-
 
     cert_button = ttk.Button(main_frame, text="Open " + new_tool.ID + " Calibration Certificate")
     cert_button.grid(row=5, column=0)

@@ -49,7 +49,6 @@ class Tool(object):
         for i in range(len(column)):
             # TODO ADD INTO IF  or (str(self.df.iloc[i, 1]) == str(self.ID))
             if (str(self.df.iloc[i, 2]) == str(self.ID)):
-                print(str(self.df.iloc[i, 1]))
                 self.sheetrow = i
                 break
 
@@ -78,7 +77,6 @@ class Tool(object):
         #DONE remove below
 
         if self.exp_type == 'COUNT' and (self.use >= self.use_limit):
-            print("used: " + self.use + "; out of " + self.use_limit)
             self.status = 'NOT GOOD FOR USE'
         else:
             if new_date_check.check() is True:
@@ -87,7 +85,6 @@ class Tool(object):
                 self.status = 'NOT GOOD FOR USE'
 
         # TODO REMOVE BELOW
-        print("my status is: " + self.status)
         #print("Today is: " + datetime.today('%m/%d/%y'))
     def set_tool_info(self):
         # Creating the name of the tool. Concatenates description (col E) and model (col G)

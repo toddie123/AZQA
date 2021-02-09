@@ -7,8 +7,7 @@ class Log(object):
 
         self.df = pd.read_csv(self.filepath, encoding='UTF-8', header=None)
 
-        # TODO REMOVE BELOW
-        print('cell is ' + str(self.df.iloc[0, 3]))
+        # done REMOVE BELOW
 
         # TODO UNCOMMENT BELOW
         #self.usecount = self.df.iloc[len(self.df.columns[3]), 3]  # grabs length of the use column, minus 1

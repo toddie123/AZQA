@@ -34,10 +34,7 @@ class Date(object):
         """""
         Returning True means good to use
         """
-        # TODO REMOVE BELOW
-        print("DT CLASS Today chop date is: " + str(self.today_month) + " " + str(self.today_day) + " " + str(
-            self.today_year)[2:4])
-        print("DT CLASS Chop Date is: " + str(self.exp_month) + " " + str(self.exp_day) + " " + str(self.exp_year))
+        # done REMOVE BELOW
 
         if str(int(self.today_year) > int(self.exp_year)) == 'True':
             # TODO REMOVE BELOW
