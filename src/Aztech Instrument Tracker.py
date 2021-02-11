@@ -6,6 +6,7 @@ Written by Todd Kuebelbeck, 2021 developed at and for Aztech Locknut Company
 Main class that contains GUI
 """""
 
+import sys
 from __future__ import absolute_import  # updated importing tools for python v3.x.x
 from azqa_instrument import Tool   # import the Tool helper class
 from tkinter import messagebox
@@ -25,11 +26,13 @@ config_file = Config()
 spread_path = config_file.masterlist
 def main():
 
-    tool_input = input('Input tool ID')
+    #tool_input = input('Input tool ID')    #REMOVED & REPLACED FOR COMMAND LINE ARGUMENTS
+
+    tool_input = sys.argv[1]    # Grab the command line argument (tool ID) and assign it as tool_input
 
     # DONE remove below
 
-    # TODO remove below
+    # DONE remove below
     #webbrowser.open_new(spread_path)
 
     new_tool = Tool(tool_input, spread_path)
