@@ -6,8 +6,9 @@ Written by Todd Kuebelbeck, 2021 developed at and for Aztech Locknut Company
 Main class that contains GUI
 """""
 
-import sys
+
 from __future__ import absolute_import  # updated importing tools for python v3.x.x
+import sys
 from azqa_instrument import Tool   # import the Tool helper class
 from tkinter import messagebox
 from tkinter import ttk
