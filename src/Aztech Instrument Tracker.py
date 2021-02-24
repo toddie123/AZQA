@@ -27,9 +27,9 @@ config_file = Config()
 spread_path = config_file.masterlist
 def main():
 
-    #tool_input = input('Input tool ID')    #REMOVED & REPLACED FOR COMMAND LINE ARGUMENTS
+    tool_input = input('Input tool ID')    #REMOVED & REPLACED FOR COMMAND LINE ARGUMENTS
 
-    tool_input = sys.argv[1]    # Grab the command line argument (tool ID) and assign it as tool_input
+    #tool_input = sys.argv[1]    # Grab the command line argument (tool ID) and assign it as tool_input
 
     # DONE remove below
 
@@ -37,13 +37,18 @@ def main():
     #webbrowser.open_new(spread_path)
 
     new_tool = Tool(tool_input, spread_path)
-
+    # TODO put this back into TRY?
+    new_tool.find_row()
+    root = tkinter.Tk()
     try:
-        new_tool.find_row()
+
         new_tool.set_tool_info()
     except Exception:
+        root.withdraw()
         messagebox.showerror(title="Aztech Instrument Tracker - Error", message="Instrument ID not found!"
                                                                                 " Please try another ID and contact QA Management.")
+        root.destroy()
+        exit()
     """""
     if str(new_tool.ID) != str(tool_input):
         messagebox.showerror(title="Aztech Instrument Tracker - Error", message="Instrument ID not found!"
@@ -71,10 +76,14 @@ def main():
         os.startfile(new_tool.cert_path)
     # TODO remove below
 
-
-    root = tkinter.Tk()
+    #TODO Uncomment below if the earlier call works
+    #root = tkinter.Tk()
 
     root.title("Aztech Instrument Tracker")
+
+    # TODO remove the two below if need-be
+    #root.overrideredirect(1)
+    #root.withdraw()
 
     icon_img = PhotoImage(file = 'aztech logo.PNG')
     root.iconphoto(False, icon_img)
@@ -88,6 +97,8 @@ def main():
     main_frame.grid(row=1, column=0)
 
     logo = Image.open('AZIT_Image1.png')
+    # TODO:  Try below, if not uncomment line below
+    #photo = ImageTk.PhotoImage(logo)
     photo = ImageTk.PhotoImage(logo)
 
     logo_label = ttk.Label(logo_frame, image=photo)
@@ -103,10 +114,11 @@ def main():
     tool_status.config(font=(44))
 
     def override_routine():
+        root.withdraw()
         override_option = messagebox.askyesno("EXPIRED INSTRUMENT", "The instrument scanned is expired or exceeded its use count!"
                                 " Notify QA Management about gage. Would you like to override?")
 
-
+        root.deiconify()
         if override_option is True:
             new_tool.status = 'OVERRIDE'
             Temp(new_tool.status, new_tool.log_path,new_tool.ID, config_file.temp_location)
