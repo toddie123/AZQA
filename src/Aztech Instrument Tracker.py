@@ -71,9 +71,9 @@ def main():
 
 
     # TODO CHANGE TO TOOL OBJECT PATH VAR
-    print("Log path in tracker is: " + str(new_tool.log_path))
+    #print("Log path in tracker is: " + str(new_tool.log_path))
     if str(new_tool.log_path) is '':
-        print("blank log path")
+        #print("blank log path")
         new_tool.use = "0"
     else:
         logged_instrument = Log(str(new_tool.log_path))

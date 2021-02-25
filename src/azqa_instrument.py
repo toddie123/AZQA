@@ -51,13 +51,13 @@ class Tool(object):
         #print(legacy_column)
 
         for i in range(len(legacy_column)):
-            print((str(self.df.iloc[i, self.legacyID_col])))
+            #print((str(self.df.iloc[i, self.legacyID_col])))
             if (str(self.df.iloc[i, self.legacyID_col]) == str(self.ID)):
                 self.sheetrow = i
-                print("sheetrow is: " + str(self.sheetrow))
+                #print("sheetrow is: " + str(self.sheetrow))
                 break
 
-        print("Legacy sheetrow is: " + str(self.sheetrow))
+        #print("Legacy sheetrow is: " + str(self.sheetrow))
 
     def find_row(self):
         column = self.df['NEW ID NUMBER']
@@ -67,15 +67,15 @@ class Tool(object):
             if (str(self.df.iloc[i, self.ID_col]) == str(self.ID)):
                 self.sheetrow = i
                 break
-        print("In INSTRUMENT: my row is" + str(self.sheetrow))
+        #print("In INSTRUMENT: my row is" + str(self.sheetrow))
 
         if self.sheetrow is None:
-            print("FINDING LEGACY")
+            #print("FINDING LEGACY")
             self.find_legacy_row()
 
 
     def set_status(self):
-        print("USE LIMIT IS: " + self.use_limit)
+       # print("USE LIMIT IS: " + self.use_limit)
         if self.use_limit.__contains__('/'):
             self.exp_type = 'DATE'
 
@@ -114,17 +114,17 @@ class Tool(object):
         # TODO create column variables for parameters
 
         #print("IN INSTRUMENT CLASS LOG PATH IS: " + int(self.config.log))
-        print("log from instrument class is: " + str(self.df.iloc[self.sheetrow, int(self.config.log)]))
+        #print("log from instrument class is: " + str(self.df.iloc[self.sheetrow, int(self.config.log)]))
         if str(self.df.iloc[self.sheetrow, int(self.config.log)]) != 'nan':
             self.log_path = str(self.df.iloc[self.sheetrow, int(self.config.log)])
             self.use_limit = int(self.df.iloc[self.sheetrow, int(self.config.use_lim)])
         else:
             print("from instrument class, LOG IS nan")
             # TODO REMOVE ABOVE AND BELOW
-        print('Made it to 122 of instrument class AND use limit is: ' + str(self.use_limit))
+        #print('Made it to 122 of instrument class AND use limit is: ' + str(self.use_limit))
 
         if self.use_limit == 'nan':
-            print("from instrument class, USE LIMIT IS ZERO")
+            #print("from instrument class, USE LIMIT IS ZERO")
             # TODO REMOVE ABOVE AND BELOW
             self.use_limit = 0
         elif self.use_limit is None:
@@ -132,7 +132,7 @@ class Tool(object):
 
 
         #TODO REMOVE BELOW
-        print('Made it out of ifs in instrument class')
+        #print('Made it out of ifs in instrument class')
 
         #self.set_status()
         self.ID_col = str(self.df.iloc[self.sheetrow, int(self.config.ID_col)])

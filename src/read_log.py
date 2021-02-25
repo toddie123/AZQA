@@ -5,7 +5,7 @@ class Log(object):
         self.filepath = input_filepath
         self.usecount = 0
 
-        print("LOG IS: " + input_filepath)
+        #print("LOG IS: " + input_filepath)
 
         if self.filepath != 'nan':
             if self.filepath is None:
@@ -18,5 +18,5 @@ class Log(object):
             self.usecount = 0
 
             # done REMOVE BELOW
-        print("USE COUNT IS: " + str(self.usecount))
+        #print("USE COUNT IS: " + str(self.usecount))
             # TODO UNCOMMENT BELOW
