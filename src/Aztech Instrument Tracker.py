@@ -40,20 +40,23 @@ def main():
     # TODO put this back into TRY?
     new_tool.find_row()
     root = tkinter.Tk()
+
+
     try:
 
         new_tool.set_tool_info()
     except Exception:
-        root.withdraw()
+       # root.withdraw()
         messagebox.showerror(title="Aztech Instrument Tracker - Error", message="Instrument ID not found!"
                                                                                 " Please try another ID and contact QA Management.")
-        root.destroy()
+       # root.destroy()
         exit()
     """""
     if str(new_tool.ID) != str(tool_input):
         messagebox.showerror(title="Aztech Instrument Tracker - Error", message="Instrument ID not found!"
                                                             " Please try another ID and contact QA Management.")
         quit()
+        
     """
 
 
@@ -67,9 +70,13 @@ def main():
 
 
     # TODO CHANGE TO TOOL OBJECT PATH VAR
-    logged_instrument = Log(str(new_tool.log_path))
-
-    new_tool.use = str(logged_instrument.usecount)
+    print("Log path in tracker is: " + str(new_tool.log_path))
+    if str(new_tool.log_path) is '':
+        print("blank log path")
+        new_tool.use = "0"
+    else:
+        logged_instrument = Log(str(new_tool.log_path))
+        new_tool.use = str(logged_instrument.usecount)
 
     def cert_button_click():
 
@@ -114,7 +121,7 @@ def main():
     tool_status.config(font=(44))
 
     def override_routine():
-        root.withdraw()
+        #root.withdraw()
         override_option = messagebox.askyesno("EXPIRED INSTRUMENT", "The instrument scanned is expired or exceeded its use count!"
                                 " Notify QA Management about gage. Would you like to override?")
 
@@ -134,7 +141,7 @@ def main():
 
         good_button = ttk.Button(main_frame, text="USE INSTRUMENT")
         good_button.grid(row=5, column=1)
-        good_button['command'] = lambda: Temp(new_tool.status, new_tool.log_path,new_tool.ID, config_file.temp_location)
+        good_button['command'] = lambda: Temp(new_tool.status, new_tool.log_path, new_tool.ID, config_file.temp_location)
 
     elif new_tool.exp_type == 'DATE' and (str(new_date_check.check()) == 'False'):
         new_tool.status = 'GOOD FOR USE'
