@@ -46,11 +46,12 @@ def main():
 
         new_tool.set_tool_info()
     except Exception:
-       # root.withdraw()
-        messagebox.showerror(title="Aztech Instrument Tracker - Error", message="Instrument ID not found!"
+       #root.withdraw()
+       messagebox.showerror(title="Aztech Instrument Tracker - Error", message="Instrument ID not found!"
                                                                                 " Please try another ID and contact QA Management.")
+       exit()
        # root.destroy()
-        exit()
+
     """""
     if str(new_tool.ID) != str(tool_input):
         messagebox.showerror(title="Aztech Instrument Tracker - Error", message="Instrument ID not found!"

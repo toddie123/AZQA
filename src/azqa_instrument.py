@@ -27,7 +27,7 @@ class Tool(object):
         self.log_path = ""
         self.cert_path = ""
         # DONE CHANGE SHEETROW TO BLANK
-        self.sheetrow = 0  # row that contains data for ID of interest
+        self.sheetrow = None  # row that contains data for ID of interest
         self.use = ""
         self.use_limit = None
         self.location = ""
