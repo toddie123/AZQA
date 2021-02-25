@@ -67,8 +67,9 @@ class Tool(object):
             if (str(self.df.iloc[i, self.ID_col]) == str(self.ID)):
                 self.sheetrow = i
                 break
+        print("In INSTRUMENT: my row is" + str(self.sheetrow))
 
-        if self.sheetrow == 0:
+        if self.sheetrow is None:
             print("FINDING LEGACY")
             self.find_legacy_row()
 
